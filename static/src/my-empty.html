@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<dom-module id="my-empty">
+    <template>
+        <style>
+            /* local styles go here */
+            :host {
+                display: block;
+                overflow: hidden;
+                margin: 16px 0;
+            }
+
+            iron-icon {
+                fill: rgba(0, 0, 0, 0);
+                stroke: currentcolor;
+            }
+
+            :host([pressed]) iron-icon {
+                fill: currentcolor;
+            }
+
+            .goedkeur {
+                background-color: green;
+                color: white;
+            }
+
+            .afkeur {
+                background-color: red;
+                color: white;
+            }
+
+            .gerecht, .buttons-box {
+                display: inline-block;
+                float: left;
+            }
+
+            .gerecht {
+                width: 40%;
+                margin: 0;
+            }
+
+            .buttons-box {
+                width: 60%;
+            }
+        </style>
+
+        <h2>Geen gerechten gevonden</h2>
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'my-empty'
+        });
+    </script>
+</dom-module>

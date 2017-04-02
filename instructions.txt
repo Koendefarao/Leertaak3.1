@@ -1,0 +1,13 @@
+pip installeren https://pip.pypa.io/en/stable/installing/
+    py get-pip.py
+
+flask installeren
+    pip install Flask
+
+flask configureren
+    set FLASK_APP=app.py
+
+flask applicatie runnen
+    flask run
+
+ga naar website http://localhost:5000

@@ -1,0 +1,82 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="my-goedkeur.html">
+
+
+<dom-module id="my-view2">
+
+    <template>
+        <iron-ajax
+                id="setup"
+                url="/get_unregistered"
+                handle-as="json"
+                on-response="handleResponse"></iron-ajax>
+
+
+
+        <style include="shared-styles">
+            :host {
+                display: block;
+
+                padding: 10px;
+            }
+
+        </style>
+
+        <div class="card" >
+            <h1>Gerecht keuren</h1>
+            <div id="gerechten">
+
+            </div>
+        </div>
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'my-view2',
+            ready: function () {
+                this.addEventListener('checkGerechten', this.checkGerechten);
+                Polymer.dom(this.$.gerechten).innerHTML = "";
+                this.$.setup.generateRequest();
+            },
+            attributeChanged: function(name, type) {
+                if(this.getAttribute(name) == 'iron-selected') {
+                    this.ready();
+                }
+            },
+            handleResponse: function (data) {
+                var gers = data.detail.response;
+                for (var j = 0; j < gers.length; j++) {
+                    var gerElement = document.createElement('my-goedkeur');
+                    gerElement.setAttribute('gerecht-naam', gers[j].name);
+                    Polymer.dom(this.$.gerechten).appendChild(gerElement);
+                }
+                this.checkGerechten(null);
+            },
+            checkGerechten: function(data) {
+                if(data != null) {
+                    data.detail.remove();
+                }
+                var gerDiv = Polymer.dom(this.$.gerechten);
+                if(gerDiv.children.length === 0) {
+                    var gerElement = document.createElement('my-empty');
+                    gerDiv.appendChild(gerElement);
+                }
+            },
+
+
+        });
+    </script>
+</dom-module>

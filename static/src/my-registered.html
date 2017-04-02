@@ -1,0 +1,54 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<dom-module id="my-registered">
+    <template>
+        <style>
+            /* local styles go here */
+            :host {
+                display: block;
+                overflow: hidden;
+                margin: 16px 0;
+            }
+
+            iron-icon {
+                fill: rgba(0, 0, 0, 0);
+                stroke: currentcolor;
+            }
+
+            :host([pressed]) iron-icon {
+                fill: currentcolor;
+            }
+
+            .gerecht, .buttons-box {
+                display: inline-block;
+                float: left;
+            }
+
+            .gerecht {
+                width: 40%;
+                margin: 0;
+            }
+
+            .buttons-box {
+                width: 60%;
+            }
+        </style>
+
+        <div>
+            <h2 class="gerecht">[[gerechtNaam]]</h2>
+
+        </div>
+
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'my-registered',
+            properties: {
+                gerechtNaam: String
+            }
+
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,80 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<dom-module id="my-unregister">
+    <template>
+        <style>
+            /* local styles go here */
+            :host {
+                display: block;
+                overflow: hidden;
+                margin: 16px 0;
+            }
+
+            iron-icon {
+                fill: rgba(0, 0, 0, 0);
+                stroke: currentcolor;
+            }
+
+            :host([pressed]) iron-icon {
+                fill: currentcolor;
+            }
+
+            .goedkeur {
+                background-color: green;
+                color: white;
+            }
+
+            .afkeur {
+                background-color: red;
+                color: white;
+            }
+
+            .gerecht, .buttons-box {
+                display: inline-block;
+                float: left;
+            }
+
+            .gerecht {
+                width: 40%;
+                margin: 0;
+            }
+
+            .buttons-box {
+                width: 60%;
+            }
+        </style>
+        <div>
+            <h2 class="gerecht">[[gerechtNaam]]</h2>
+            <div class="buttons-box">
+                <paper-button raised class="afkeur" on-click="unregisterGerecht">Verwijder</paper-button>
+            </div>
+        </div>
+
+        <iron-ajax
+                id="gerechtunregister"
+                url="/unregister_gerecht"
+                content-type="application/x-www-form-urlencoded"
+                method="POST"
+                handle-as="json"
+                on-response="actionResponse"></iron-ajax>
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'my-unregister',
+            properties: {
+                gerechtNaam: String
+            },
+            unregisterGerecht: function () {
+                this.$.gerechtunregister.body = 'gerecht=' + encodeURIComponent(this.gerechtNaam);
+                this.$.gerechtunregister.generateRequest();
+
+            },
+            actionResponse: function (data) {
+                this.fire('checkGerechten', this);
+                //this.remove();
+            }
+        });
+    </script>
+</dom-module>
